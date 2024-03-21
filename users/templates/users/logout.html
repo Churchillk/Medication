@@ -1,0 +1,42 @@
+{% extends "users/form_base.html" %}
+
+{% block title %}Logout{% endblock title %}
+
+{% block body %}
+{% extends "users/form_base.html" %}
+
+{% block title %}Confirm Delete{% endblock title %}
+
+{% block body %}
+<main class="form-signin w-100 m-auto">
+    <div class="container">
+        <form action="" method = "POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Logout</legend>
+                <h2>Are you sure you wanna Logout</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" href = "{% url "profile" %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</main>
+    <br>
+    <br>  
+    <br>
+    <br> 
+    <br>
+    <br> 
+    <br>
+    <br>  
+    <br>
+    <br>  
+    <br>
+    <br> 
+    <br>
+    <br> 
+{% endblock body %}
+
+{% endblock body %}

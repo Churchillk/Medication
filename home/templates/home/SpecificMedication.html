@@ -1,0 +1,45 @@
+{% extends "home/base.html" %}
+
+{% block title %}successfuly added{% endblock title %}
+
+{% block body %}
+<!-- Page header with logo and tagline-->
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+        {% if request.user.is_authenticated %}
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">Dear {{ request.user.username }} </h1>
+                <p class="lead mb-0">Your successfuly added <b>{{ medicine.Medication }}</b> to List</p>
+            </div>
+        {% endif %}
+        
+    </div>
+</header>
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">{{ medicine.start }}</div>
+                            <h2 class="card-title h4">{{ medicine.Disease }}</h2>
+                            <h4 class="card-title h5">Drug: </h3>
+                                <p class="card-text">{{ medicine.Medication }}</p>
+                            <h4 class="card-title h5">Dose: </h3>
+                                <p class="card-text">{{ medicine.Dose }}</p>
+                            <a class="btn btn-primary" href="#!">History→</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

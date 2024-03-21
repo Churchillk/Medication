@@ -1,0 +1,317 @@
+{% extends "home/base.html" %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block body %}
+
+{% if request.user.is_authenticated %}
+
+<!-- Page header with logo and tagline-->
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Welcome Back {{ request.user.username }}</h1>
+            <p class="lead mb-0">Keep track of all your  medication</p>
+        </div>
+    </div>
+</header>
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row">
+                {% if medicines %}
+                    {% for medicine in medicines %}
+                    <div class="col-lg-6">
+                        <!-- Blog post-->
+                        <div class="card mb-4">
+                            <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{{ medicine.start }}</div>
+                                <h2 class="card-title h4">{{ medicine.Disease }}</h2>
+                                {% comment %} <h4 class="card-title h5">Age: </h3>
+                                    <p class="card-text">{{ patient.Age }}</p> {% endcomment %}
+                                <h4 class="card-title h5">Drug: </h3>
+                                    <p class="card-text">{{ medicine.Medication }}</p>
+                                <h4 class="card-title h5">Dose: </h3>
+                                    <p class="card-text">{{ medicine.Dose }}</p>
+                                {% comment %} <h4 class="card-title h5">Type: </h3>
+                                <p class="card-text">{{ patient.Type }}</p> {% endcomment %}
+                                <a class="btn btn-primary" href="#!">History→</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">{{ medicine.start }}</div>
+                                    <h2 class="card-title h4">hello {{ request.user.username }}</h2>
+                                        <p class="card-text">it seems like currently you have no medication to keep track of.. </p>
+                                    <a class="btn btn-primary" href="{% url "add" %}">Add</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--two-->
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">{{ medicine.start }}</div>
+                                    <h2 class="card-title h4">Solution</h2>
+                                        <p class="card-text">To see your Medication start by adding them by clicking the below add buttons</p>
+                                    <a class="btn btn-primary" href="{% url "add" %}">Add</a>
+                                </div>
+                            </div>
+                        </div>
+                {% endif %}
+                
+
+            <!--searching for users-->
+            {% if results %}
+                    <div class="card mb-4">
+                        <div class="card-header">Available Medication</div>
+                        <div class="card-body">
+                            <ul>
+                                {% for user in results %}
+                                <div class="card mb-4">
+                                    <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                                    <div class="card-body">
+                                        <div class="small text-muted">{{ user.start }}</div>
+                                        <h2 class="card-title h4">{{ user.Disease }}</h2>
+                                        {% comment %} <h4 class="card-title h5">Age: </h3>
+                                            <p class="card-text">{{ patient.Age }}</p> {% endcomment %}
+                                        <h4 class="card-title h5">Drug: </h3>
+                                            <p class="card-text">{{ user.Medication }}</p>
+                                        <h4 class="card-title h5">Dose: </h3>
+                                            <p class="card-text">{{ user.Dose }}</p>
+                                        {% comment %} <h4 class="card-title h5">Type: </h3>
+                                        <p class="card-text">{{ patient.Type }}</p> {% endcomment %}
+                                        <a class="btn btn-primary" href="#!">History→</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                        {% comment %} <h2 class="card-title h5">Search Results</h2> {% endcomment %}
+                        
+                    {% comment %} {% else %}
+                        <p>No results found.</p> {% endcomment %}
+                    {% endif %}
+            </div>
+            <!-- Pagination-->
+            <nav aria-label="Pagination">
+                <hr class="my-0" />
+                <ul class="pagination justify-content-center my-4">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                  
+                    {% for num in page_obj.paginator.page_range %}
+                      {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                  
+                    {% if page_obj.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                    {% endif %}
+                  </ul>
+                  
+            </nav>
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <!-- Search widget-->
+            <div class="card mb-4">
+                <div class="card-header">Search</div>
+                <div class="card-body">
+                    <form method = "GET", action = {% url "search" %}>
+                        <div class="input-group">
+                            {{ form.as_p }}
+                            {% comment %} <input class="form-control" type="text" placeholder="Enter search query..." aria-label="Enter search query..." aria-describedby="button-search" /> {% endcomment %}
+                            <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Categories widget-->
+            <div class="card mb-4">
+                <div class="card-header">Recents</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="#!">LongTerm Disease</a></li>
+                                <li><a href="#!">ShortTerm Disease</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="#!">Malaria</a></li>
+                                <li><a href="#!">Tuberclosi</a></li>
+                                <li><a href="#!">Cholera</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side widget-->
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+<!-- Page header with logo and tagline-->
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Sign in</h1>
+            <p class="lead mb-0">Hello there login to keep track of your medication. or register to keep good track of your medication plan</p>
+        </div>
+    </div>
+</header>
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">March 17, 2024, 3:20 p.m.</div>
+                            <h2 class="card-title h4">Aunthentication Required</h2>
+                            {% comment %} <h4 class="card-title h5">Age: </h3>
+                                <p class="card-text">{{ patient.Age }}</p> {% endcomment %}
+                            <h4 class="card-title h5">Drug: </h3>
+                                <p class="card-text">Login or Register</p>
+                            <h4 class="card-title h5">Dose: </h3>
+                                <p class="card-text">Anyday anytime</p>
+                            {% comment %} <h4 class="card-title h5">Type: </h3>
+                            <p class="card-text">{{ patient.Type }}</p> {% endcomment %}
+                            <a class="btn btn-primary" href="{% url "login" %}">History→</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">March 17, 2024, 3:20 p.m.</div>
+                            <h2 class="card-title h4">Aunthentication Required</h2>
+                            {% comment %} <h4 class="card-title h5">Age: </h3>
+                                <p class="card-text">{{ patient.Age }}</p> {% endcomment %}
+                            <h4 class="card-title h5">Drug: </h3>
+                                <p class="card-text">Login or Register</p>
+                            <h4 class="card-title h5">Dose: </h3>
+                                <p class="card-text">Anyday anytime</p>
+                            {% comment %} <h4 class="card-title h5">Type: </h3>
+                            <p class="card-text">{{ patient.Type }}</p> {% endcomment %}
+                            <a class="btn btn-primary" href="{% url "login" %}">History→</a>
+                        </div>
+                    </div>
+                </div>
+            <!--searching for users-->
+            {% if results %}
+                    <div class="card mb-4">
+                        <div class="card-header">Available Medication</div>
+                        <div class="card-body">
+                            <ul>
+                                {% for user in results %}
+                                <div class="card mb-4">
+                                    <a href="#!"><img class="card-img-top" src="https://imgs.search.brave.com/5ccxYfWhRogljpdYzCFlMFVRWbw9913-31XeTlnuAnI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA0/MTE3MTg2L3Bob3Rv/L2RvY3Rvci1hbmQt/bnVyc2UtdGFsa2lu/Zy10by1wYXRpZW50/LWluLWhvc3BpdGFs/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz03bkc1UGJiZXNS/U2FnMUp2WW1tZDdp/TnQxMHQ1d1lPVk1z/RUFpakhkVGNNPQ" alt="..." /></a>
+                                    <div class="card-body">
+                                        <div class="small text-muted">{{ user.start }}</div>
+                                        <h2 class="card-title h4">{{ user.Disease }}</h2>
+                                        {% comment %} <h4 class="card-title h5">Age: </h3>
+                                            <p class="card-text">{{ patient.Age }}</p> {% endcomment %}
+                                        <h4 class="card-title h5">Drug: </h3>
+                                            <p class="card-text">{{ user.Medication }}</p>
+                                        <h4 class="card-title h5">Dose: </h3>
+                                            <p class="card-text">{{ user.Dose }}</p>
+                                        {% comment %} <h4 class="card-title h5">Type: </h3>
+                                        <p class="card-text">{{ patient.Type }}</p> {% endcomment %}
+                                        <a class="btn btn-primary" href="#!">History→</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                        {% comment %} <h2 class="card-title h5">Search Results</h2> {% endcomment %}
+                        
+                    {% comment %} {% else %}
+                        <p>No results found.</p> {% endcomment %}
+                    {% endif %}
+            </div>
+            <!-- Pagination-->
+            <nav aria-label="Pagination">
+                <hr class="my-0" />
+                <ul class="pagination justify-content-center my-4">
+                      <li class="page-item"><a class="page-link" href="{% url "login" %}">First</a></li>
+                      <li class="page-item"><a class="page-link" href="{% url "login" %}">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="{% url "login" %}">Last</a></li>
+                  </ul>
+                  
+            </nav>
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <!-- Search widget-->
+            <div class="card mb-4">
+                <div class="card-header">Search</div>
+                <div class="card-body">
+                    <form method = "GET", action = {% url "search" %}>
+                        <div class="input-group">
+                            {{ form.as_p }}
+                            {% comment %} <input class="form-control" type="text" placeholder="Enter search query..." aria-label="Enter search query..." aria-describedby="button-search" /> {% endcomment %}
+                            <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Categories widget-->
+            <div class="card mb-4">
+                <div class="card-header">Recents</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="#!">LongTerm Disease</a></li>
+                                <li><a href="#!">ShortTerm Disease</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="#!">Malaria</a></li>
+                                <li><a href="#!">Tuberclosi</a></li>
+                                <li><a href="#!">Cholera</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side widget-->
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock body %}

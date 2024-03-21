@@ -1,0 +1,37 @@
+{% extends "users/form_base.html" %}
+
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block inhouseCSS %}
+    <link href="{% static "css/login.css" %}" rel="stylesheet" />
+{% endblock inhouseCSS %}
+
+{% block body %}
+<main class="form-signin w-100 m-auto">
+  <div class="container">
+      <form action="" method = "POST">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Login Now</legend>
+              {{ form.as_p }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+          </div>
+      </form>
+      <div class="border-top pt-3">
+          <small class="text-muted">
+              Dont have an account <a href="{% url 'register' %}">Sign Up</a>
+          </small>
+      </div>
+  </div>
+</main>
+  <br>
+  <br>  
+  <br>
+  <br> 
+  <br>
+  <br> 
+{% endblock body %}
